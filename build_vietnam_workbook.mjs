@@ -1,8 +1,10 @@
 import fs from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { FileBlob, SpreadsheetFile } from '@oai/artifact-tool';
 
-const sourcePath = 'C:/Users/13728/Desktop/gac/Mingfang_Zhong_20260826_030056_ms4p3jyr.0qy.xlsx';
-const outputDir = 'C:/Users/13728/Desktop/gac/outputs/vietnam_simulation';
+const sourcePath = process.argv[2] ? resolve(process.argv[2]) : fileURLToPath(new URL('./Mingfang_Zhong_20260826_030056_ms4p3jyr.0qy.xlsx', import.meta.url));
+const outputDir = process.argv[3] ? resolve(process.argv[3]) : fileURLToPath(new URL('./outputs/vietnam_simulation/', import.meta.url));
 const outputPath = `${outputDir}/越南乘用车注册模拟数据_2026.xlsx`;
 
 const wb = await SpreadsheetFile.importXlsx(await FileBlob.load(sourcePath));
@@ -53,6 +55,7 @@ for (let i = 0; i < vinfastRows.length; i++) values[1 + i] = vinfastRows[i];
 
 ws.getRange(`A1:N${rows}`).values = values;
 ws.getRange(`G2:N${rows}`).format.numberFormat = '#,##0';
+wb.recalculate();
 await fs.mkdir(outputDir, {recursive:true});
 const out = await SpreadsheetFile.exportXlsx(wb);
 await out.save(outputPath);

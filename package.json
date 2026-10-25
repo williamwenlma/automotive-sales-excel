@@ -1,0 +1,21 @@
+{
+  "name": "automotive-sales-excel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automotive sales Excel templates and a Vietnam market simulation demo.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "demo": "node demo.mjs",
+    "build": "node build_vietnam_workbook.mjs",
+    "inspect": "node inspect_workbook.mjs",
+    "verify": "node verify_vietnam_workbook.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/williamwenlma/automotive-sales-excel.git"
+  }
+}
